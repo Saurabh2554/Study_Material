@@ -1,0 +1,17 @@
+services:
+  # The Aspire Dashboard Service
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:latest
+    container_name: aspire-dashboard
+    environment:
+      # Allows you to access the GUI without a token/login
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
+    ports:
+      - "18888:18888" # The GUI (Open this in browser)
+      - "4317:18889"  # The OTLP Receiver (Django sends logs here)
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
